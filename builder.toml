@@ -1,0 +1,8 @@
+[[buildpacks]]
+  id = "divio/flavor-python"
+  uri = "."
+
+[[groups]]
+  [[groups.buildpacks]]
+    id = "divio/flavor-python"
+    version = "0.1"

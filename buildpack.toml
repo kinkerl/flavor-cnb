@@ -1,0 +1,7 @@
+[buildpack]
+id = "divio/flavor-python"
+version = "0.1"
+name = "Flavor Python"
+
+[[stacks]]
+id = "heroku-18"

@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# bin/build <layers-dir> <platform-dir> <build-plan>
+
+set -ex
+
+# step 1: gather inputs
+
+APP_DIR="$(pwd)"
+LAYERS_DIR="$1"
+
+# step 3: install python
+
+FLAVOR_PYTHON_LAYER="$LAYERS_DIR/flavor-python"
+mkdir -p "$FLAVOR_PYTHON_LAYER"
+
+
+#
+mkdir -p "$FLAVOR_PYTHON_LAYER/env"
+echo -n "i_am_added_by_the_buildpack" > "$FLAVOR_PYTHON_LAYER/env/NOTES"
+
+
+#
+
+cat << EOF > $FLAVOR_PYTHON_LAYER.toml
+launch = true
+cache = true
+EOF
