@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # bin/detect <platform-dir> <build-plan>
 
-if [ ! -f requirements.txt ]; then
+if [ ! -f flavor.yml ]; then
   exit 1
 fi
 

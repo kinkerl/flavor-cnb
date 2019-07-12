@@ -1,27 +1,43 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python3
 # bin/build <layers-dir> <platform-dir> <build-plan>
 
-set -ex
-
-# step 1: gather inputs
-
-APP_DIR="$(pwd)"
-LAYERS_DIR="$1"
-
-# step 3: install python
-
-FLAVOR_PYTHON_LAYER="$LAYERS_DIR/flavor-python"
-mkdir -p "$FLAVOR_PYTHON_LAYER"
+from pathlib import Path
+import sys
+import shutil
 
 
-#
-mkdir -p "$FLAVOR_PYTHON_LAYER/env"
-echo -n "i_am_added_by_the_buildpack" > "$FLAVOR_PYTHON_LAYER/env/NOTES"
+LAYERS_DIR=sys.argv[1]
+APP_DIR=Path.cwd()
+FLAVOR_PYTHON_LAYER=f"{LAYERS_DIR}/flavor-python"
+Path(FLAVOR_PYTHON_LAYER).mkdir(exist_ok=True)
 
 
-#
+# prepare files
 
-cat << EOF > $FLAVOR_PYTHON_LAYER.toml
-launch = true
+
+
+#my_file = APP_DIR / "flavor.yml"
+#to_file = APP_DIR / "flavor.all.yml"
+#shutil.copy(str(my_file), str(to_file))
+
+p = Path(FLAVOR_PYTHON_LAYER)
+p = p / "env"
+p.mkdir(exist_ok=True)
+
+
+p = Path(f"{FLAVOR_PYTHON_LAYER}/env/NOTES")
+with p.open(mode='w') as f:
+    f.write("i_am_added_by_the_buildpack")
+
+
+
+
+# prepare config
+p = Path(f"{FLAVOR_PYTHON_LAYER}.toml")
+with p.open(mode='w') as f:
+    f.write("""launch = true
 cache = true
-EOF
+""")
+
+
+
